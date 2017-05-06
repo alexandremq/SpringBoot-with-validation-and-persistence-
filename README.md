@@ -69,5 +69,5 @@ curl -XPOST -d '{ "publisher": "Prospect", "tweet": "Breaking the law" }' -H 'Co
 
 From the application folder, run
 ```sh
-./gradlew test 
+./gradlew test
 ```

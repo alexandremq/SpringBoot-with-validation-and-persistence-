@@ -48,11 +48,42 @@ public class TweetControllerTest {
     }
 
     @Test
+    public void shouldReturn400WhenInsertingEmptyPublisher() throws Exception {
+        mockMvc.perform(newTweet("", "We are Schibsted Spain (look at our home page http://www.schibsted.es/), we own Vibbo, InfoJobs, fotocasa, coches.net and milanuncios. Welcome!"))
+                .andExpect(status().is(400));
+    }
+
+    @Test
+    public void shouldReturn400WhenInsertingEmptyTweet() throws Exception {
+        mockMvc.perform(newTweet("Schibsted Spain", ""))
+                .andExpect(status().is(400));
+    }
+
+    @Test
     public void shouldReturnAllPublishedTweets() throws Exception {
         mockMvc.perform(newTweet("Yo", "How are you?"))
                 .andExpect(status().is(201));
 
         MvcResult getResult = mockMvc.perform(get("/tweet"))
+                .andExpect(status().is(200))
+                .andReturn();
+
+        String content = getResult.getResponse().getContentAsString();
+        assertThat(new ObjectMapper().readValue(content, List.class).size()).isEqualTo(1);
+    }
+
+    @Test
+    public void shouldReturnAllDiscardedTweets() throws Exception {
+        mockMvc.perform(newTweet("Yo", "How are you?"))
+                .andExpect(status().is(201));
+
+        mockMvc.perform(post("/discarded")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(format("{\"tweet\": \"%s\"}", "1")))
+                .andExpect(status().is(200));
+
+        MvcResult getResult = mockMvc.perform(get("/discarded")
+                .header("publisher", "Yo"))
                 .andExpect(status().is(200))
                 .andReturn();
 
