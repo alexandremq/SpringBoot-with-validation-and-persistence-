@@ -1,6 +1,4 @@
-# Technical test for Fotocasa backend developer
-
-(For how to deliver this test, check [DELIVERABLE.md](DELIVERABLE.md))
+# Overview
 
 This public service handles a list of tweets, each of 140 characters or less. The service
 can be described with the following user stories and acceptance criteria:
@@ -13,7 +11,7 @@ can be described with the following user stories and acceptance criteria:
 * As a User, I want to view the list of published Tweets.
     * The list must be sorted by publication date in descending order.
      
-To pass this test, we expect software that also fulfills the following list of strategic user stories
+## Strategic user stories
 
 * As a User, I want to add links to the tweet text without affecting the 140 character limit.
     * A link is any set of non-whitespace consecutive characters starting with http:// or https:// and finishing with a space.
@@ -24,17 +22,7 @@ To pass this test, we expect software that also fulfills the following list of s
 * As a User, I want to view a list of discarded tweets.
     * The list must be sorted by the date it was discarded on in descending order.
 
-## Technical Requirements
-
-* The application must fulfill all of the acceptance criteria.
-* Feel free to refactor old code when adding new user stories.
-* Application test coverage must not decrease.
-* Do not use any framework or library not already in the codebase.
-* API contracts can't be changed or modified any way.
-
 ### APIs
-
-For the two new endpoints, you must accept this API:
 
 * As a User, I want to discard tweets:
     * POST /discarded
